@@ -1,0 +1,24 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model TestPostWithRazor.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+
+<body>
+    <form method="post">
+        <input asp-for="Message" />
+        <br />
+        <input type="submit" />
+    </form>
+</body>
+
+</html>
