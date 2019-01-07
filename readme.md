@@ -1,4 +1,4 @@
-# Creating the simplest possible ASP. NET Core form
+# Creating the simplest possible ASP. NET Core form with a POST method
 
 Recently I needed to create a simple page for someone to submit an HTML form. The rest of the Azure aplication is running on [Azure serverless functions](http://gslb.ch/a10a), [Logic apps](http://gslb.ch/a266a) and [Cognitive services](http://gslb.ch/a117a), but for that last part I wanted something where the user can click on a link, open the page in a web browser (probably on a mobile device), enter a passphrase in a form and the submit through a POST to an SSL encrypted page. I thought of writing a small Xamarin app and submitting through POST to an Azure Function. Another option would be to use a static HTML page and to use Javascript to submit the Form through a POST to that Azure Function. I don't exclude these two options for the future.
 
