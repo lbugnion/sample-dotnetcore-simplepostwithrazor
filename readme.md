@@ -151,7 +151,7 @@ At this point, you will get an HTTP error 400 in the browser (Bad request).
 
 ## Fixing the Bad request error 400
 
-A quick online search reveals that the issue has to do with a missing [antiforgery tokens](http://gslb.ch/a285a), which are a security measure put in place by ASP.NET to avoid cross-site request forgery (CSRF) attacks. In essence, what the token does is prove that the request comes from the site which the form originated from.
+A quick online search reveals that the issue has to do with missing [antiforgery tokens](http://gslb.ch/a285a), which are a security measure put in place by ASP.NET to avoid cross-site request forgery (CSRF) attacks. In essence, what the token does is prove that the request comes from the site which the form originated from.
 
 So how do we get the token? This is where a useful namespace [called `Microsoft.AspNetCore.Mvc.TagHelpers` comes to play](http://gslb.ch/a283a). Adding this to the CSHTML page will automatically generate the antiforgery token in the HTML form, and will also create the HTML attributes corresponding to [the `asp-for` attribute](http://gslb.ch/a284a) that we added into the form.
 
