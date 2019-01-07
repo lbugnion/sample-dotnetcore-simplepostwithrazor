@@ -4,6 +4,8 @@ Recently I needed to create a simple page for someone to submit an HTML form. Th
 
 But in the meantime I wanted to experiment with a simple [Razor page (CSHTML)](http://gslb.ch/a193a) that would present an HTML Form to the user, and submit this Form to itself with a POST over HTTPS.
 
+> The [source code for this example is here](https://github.com/lbugnion/sample-dotnetcore-simplepostwithrazor/tree/master/src).
+
 ## Razor pages with models are really cool
 
 I love super simple [ASP.NET Core](http://gslb.ch/a278a) sites without MVC. Don't get me wrong, [MVC](http://gslb.ch/a279a) is awesome for enterprise web applications, where testability and maintainability are primordial. But they also come with a lot of overhead. If you go ahead and create an "empty" ASP.NET Core MVC website with the red-circled template below, you will end up with a lot of files (CSHTML pages, controllers, setup classes, Javascript, CSS etc). Even an empty ASP.NET Core MVC website contains 38 files (!).
@@ -185,6 +187,8 @@ So how do we get the token? This is where a useful namespace [called `Microsoft.
 6. Modify the content of the text field and click on the Submit button. At this point, the breakpoint in the `OnPost` method should get hit, and the content of the field will be assigned to the `Message` property.
 
 ## Conclusion
+
+> The [source code for this example is here](https://github.com/lbugnion/sample-dotnetcore-simplepostwithrazor/tree/master/src).
 
 Sometimes, simple is better. In this example, we saw how to create an empty ASP.NET Core application with a Razor page (and the corresponding `PageModel`), and how to configure this application to handle simple `GET` and `POST` methods. This is an alternative to other mechanisms such as a pure client-side JavaScript powered page talking to a serverless Azure function. While the solution presented here is not serverless, you can take advantage of it if you already have an App Service plan in Azure, with Windows or Linux thanks to the cross-platform abilities of ASP.NET Core.
 
