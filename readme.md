@@ -1,28 +1,28 @@
 # Creating the simplest possible ASP. NET Core form
 
-Recently I needed to create a simple page for someone to submit an HTML form. The rest of the Azure aplication is running on [Azure serverless functions](http://gslb.ch/a10a), [Logic apps](http://gslb.ch/a266a) and [Cognitive services](http://gslb.ch/a117a), but for that last part I wanted something where the user can click on a link, open the page in a web browser (probably on a mobile device), enter a passphrase in a form and the submit through a POST to an SSL encrypted page. I thought of writing a small Xamarin app and submitting through POST to an Azure Function. Another option would be to use a static HTML page and to use Javascript to submit the Form through a POST to that Azure Function. I don't exclude these two options for the future.
+Recently I needed to create a simple page for someone to submit an HTML form. The rest of the Azure aplication is running on [Azure serverless functions](http://gslb.ch/h10a), [Logic apps](http://gslb.ch/h266a) and [Cognitive services](http://gslb.ch/h117a), but for that last part I wanted something where the user can click on a link, open the page in a web browser (probably on a mobile device), enter a passphrase in a form and the submit through a POST to an SSL encrypted page. I thought of writing a small Xamarin app and submitting through POST to an Azure Function. Another option would be to use a static HTML page and to use Javascript to submit the Form through a POST to that Azure Function. I don't exclude these two options for the future.
 
-But in the meantime I wanted to experiment with a simple [Razor page (CSHTML)](http://gslb.ch/a193a) that would present an HTML Form to the user, and submit this Form to itself with a POST over HTTPS.
+But in the meantime I wanted to experiment with a simple [Razor page (CSHTML)](http://gslb.ch/h193a) that would present an HTML Form to the user, and submit this Form to itself with a POST over HTTPS.
 
 > The [source code for this example is here](https://github.com/lbugnion/sample-dotnetcore-simplepostwithrazor/tree/master/src).
 
 ## Razor pages with models are really cool
 
-I love super simple [ASP.NET Core](http://gslb.ch/a278a) sites without MVC. Don't get me wrong, [MVC](http://gslb.ch/a279a) is awesome for enterprise web applications, where testability and maintainability are primordial. But they also come with a lot of overhead. If you go ahead and create an "empty" ASP.NET Core MVC website with the red-circled template below, you will end up with a lot of files (CSHTML pages, controllers, setup classes, Javascript, CSS etc). Even an empty ASP.NET Core MVC website contains 38 files (!).
+I love super simple [ASP.NET Core](http://gslb.ch/h278a) sites without MVC. Don't get me wrong, [MVC](http://gslb.ch/h279a) is awesome for enterprise web applications, where testability and maintainability are primordial. But they also come with a lot of overhead. If you go ahead and create an "empty" ASP.NET Core MVC website with the red-circled template below, you will end up with a lot of files (CSHTML pages, controllers, setup classes, Javascript, CSS etc). Even an empty ASP.NET Core MVC website contains 38 files (!).
 
 ![ASP.NET Core Razor and ASP.NET Core MVC templates in Visual Studio](./img/002.png)
 
 *ASP.NET Core Razor and ASP.NET Core MVC templates in Visual Studio*
 
-Another option is to create an ASP.NET Core web application with Razor pages only. In such an app, you eliminate the controllers, and you handle the code in a [PageModel](http://gslb.ch/a280a) instance which is attached to the CSHTML Razor page. This is definitely less complex and in fact my private website is implemented in this manner. However even if you create an "empty" web application in this manner using the orange-circled template shown above, you still end up with a lot of files and need to delete most of them. That's annoying and I prefer to start from a "truly empty" template like the one selected in blue in the image above.
+Another option is to create an ASP.NET Core web application with Razor pages only. In such an app, you eliminate the controllers, and you handle the code in a [PageModel](http://gslb.ch/h280a) instance which is attached to the CSHTML Razor page. This is definitely less complex and in fact my private website is implemented in this manner. However even if you create an "empty" web application in this manner using the orange-circled template shown above, you still end up with a lot of files and need to delete most of them. That's annoying and I prefer to start from a "truly empty" template like the one selected in blue in the image above.
 
-> Even though I use Visual Studio in this example, you can create the ASP.NET Core apps using a command line with the `dotnet new` [syntax shown here](http://gslb.ch/a281a).
+> Even though I use Visual Studio in this example, you can create the ASP.NET Core apps using a command line with the `dotnet new` [syntax shown here](http://gslb.ch/h281a).
 
 ## Starting from scratch
 
 Let's start from scratch using the `Empty` web app template shown above. To do this, in Visual Studio 2017, start by selecting File, New, Project.
 
-> Before you start, you must make sure to have installed the .NET Core workload in the [Visual Studio installer](http://gslb.ch/a282a). You can always run the Visual Studio Installer from your Start menu, and check that the following workload is checked.
+> Before you start, you must make sure to have installed the .NET Core workload in the [Visual Studio installer](http://gslb.ch/h282a). You can always run the Visual Studio Installer from your Start menu, and check that the following workload is checked.
 
 ![.NET Core workload](./img/003.png)
 
@@ -91,7 +91,7 @@ By default, the page is configured to receive GET requests. We will test this no
 - Run the application in debug mode. This will start IIS Express and open a `localhost` URL in your favorite web browser, for example `https://localhost:44367/`.
 - Notice that the breakpoint is hit.
 
-Within the method, you have access to all the usual ASP.NET objects, such as the [HttpRequest](http://gslb.ch/a287a) instance (in the `Request` property), etc.
+Within the method, you have access to all the usual ASP.NET objects, such as the [HttpRequest](http://gslb.ch/h287a) instance (in the `Request` property), etc.
 
 ## Setting up the POST feature
 
@@ -143,7 +143,7 @@ public void OnPost()
 
 ![Empty HTML form](./img/005.png)
 
-At this point, you might be surprised if like me you had expected the input field to be initialized with the content of the `Message` property (because of [the `asp-for` attribute](http://gslb.ch/a284a)). But let's test further to see another issue.
+At this point, you might be surprised if like me you had expected the input field to be initialized with the content of the `Message` property (because of [the `asp-for` attribute](http://gslb.ch/h284a)). But let's test further to see another issue.
 
 8. Enter any text in the field and press the Submit button.
 
@@ -151,12 +151,12 @@ At this point, you will get an HTTP error 400 in the browser (Bad request).
 
 ## Fixing the Bad request error 400
 
-A quick online search reveals that the issue has to do with missing [antiforgery tokens](http://gslb.ch/a285a), which are a security measure put in place by ASP.NET to avoid cross-site request forgery (CSRF) attacks. In essence, what the token does is prove that the request comes from the site which the form originated from.
+A quick online search reveals that the issue has to do with missing [antiforgery tokens](http://gslb.ch/h285a), which are a security measure put in place by ASP.NET to avoid cross-site request forgery (CSRF) attacks. In essence, what the token does is prove that the request comes from the site which the form originated from.
 
-So how do we get the token? This is where a useful namespace [called `Microsoft.AspNetCore.Mvc.TagHelpers` comes to play](http://gslb.ch/a283a). Adding this to the CSHTML page will automatically generate the antiforgery token in the HTML form, and will also create the HTML attributes corresponding to [the `asp-for` attribute](http://gslb.ch/a284a) that we added into the form.
+So how do we get the token? This is where a useful namespace [called `Microsoft.AspNetCore.Mvc.TagHelpers` comes to play](http://gslb.ch/h283a). Adding this to the CSHTML page will automatically generate the antiforgery token in the HTML form, and will also create the HTML attributes corresponding to [the `asp-for` attribute](http://gslb.ch/h284a) that we added into the form.
 
 1. Open Index.cshtml.
-2. On top of the file, but *below* [the `@page` attribute](http://gslb.ch/a286a), add [the `@addTagHelper` attribute](http://gslb.ch/a283a) so that your file looks like the following code:
+2. On top of the file, but *below* [the `@page` attribute](http://gslb.ch/h286a), add [the `@addTagHelper` attribute](http://gslb.ch/h283a) so that your file looks like the following code:
 
 ```cs
 @page
